@@ -11,9 +11,8 @@ Adds comments to [tagged template literals](https://developer.mozilla.org/en-US/
 
 ## Features
 
--   Removes commented out data
--   Single line comments
--   Multiline line comments
+-   Removes commented out strings and values
+-   Supports single line and multiline comments
 -   Trims excess whitespace and new lines
 
 ## Installation
@@ -98,7 +97,7 @@ const parser = createCommentParser({
 	/**
 	 * Throw on invalid syntax
 	 *
-	 * default true
+	 * default: true
 	 */
 	throwOnSyntaxError: true,
 });
