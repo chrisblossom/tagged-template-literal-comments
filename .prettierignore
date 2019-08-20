@@ -1,0 +1,28 @@
+# This file is managed by backtrack
+#
+# DO NOT MODIFY
+
+.cache
+.idea
+.vscode
+node_modules
+flow-typed
+flow
+coverage
+build
+dist
+static
+package.json
+package-lock.json
+.eslintrc.js
+.prettierrc.js
+.lintstagedrc.js
+.huskyrc.js
+__sandbox__
+.backtrack-stats.json
+wallaby.config.js
+tsconfig.*
+.np-config.js
+jest.config.js
+.babelrc.js
+*-backup-*

@@ -1,0 +1,57 @@
+{
+  "name": "tagged-template-literal-comments",
+  "version": "0.0.1",
+  "description": "Adds comment parsing to javascript tagged template literals",
+  "keywords": [
+    "tagged",
+    "template",
+    "literal",
+    "comments",
+    "commenting",
+    "parser",
+    "parse"
+  ],
+  "license": "MIT",
+  "private": false,
+  "repository": "chrisblossom/tagged-template-literal-comments",
+  "homepage": "https://github.com/chrisblossom/tagged-template-literal-comments",
+  "author": "Chris Blossom",
+  "engines": {
+    "node": ">=8.9.0"
+  },
+  "files": [
+    "dist/"
+  ],
+  "main": "dist/tagged-template-literal-comments.js",
+  "types": "dist/tagged-template-literal-comments.d.ts",
+  "scripts": {
+    "build": "backtrack build --production",
+    "check.all": "backtrack check.all",
+    "clean": "backtrack clean",
+    "dev": "backtrack dev --development",
+    "format": "backtrack format",
+    "git-pre-commit": "backtrack git-pre-commit",
+    "git-pre-push": "backtrack git-pre-push",
+    "lint": "backtrack lint",
+    "lint.fix": "backtrack lint.fix",
+    "prepublishOnly": "backtrack prepublishOnly",
+    "release": "backtrack release",
+    "test": "backtrack test",
+    "test.ci": "backtrack test.ci",
+    "test.ci-pretest": "backtrack test.ci-pretest",
+    "test.update": "jest --update-snapshot",
+    "test.watch": "jest --watch",
+    "typescript": "backtrack typescript"
+  },
+  "devDependencies": {
+    "@backtrack/core": "^0.2.1",
+    "@backtrack/preset-node": "^0.6.2",
+    "@types/jest": "^24.0.18",
+    "@types/node": "^12.7.2",
+    "benchmark": "^2.1.4",
+    "typescript": "^3.5.3"
+  },
+  "dependencies": {
+    "escape-string-regexp": "^2.0.0"
+  }
+}
