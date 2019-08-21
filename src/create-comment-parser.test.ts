@@ -4,7 +4,7 @@ import { s } from './tagged-template-literal-comments-test-runner';
 
 describe('createCommentParser', () => {
 	test('creates parser', () => {
-		const options: Options = { preset: 'javascript' };
+		const options: Options = { language: 'javascript' };
 		const parser = createCommentParser(options);
 		const js = s`
 		a | b | c
@@ -18,7 +18,7 @@ describe('createCommentParser', () => {
 	});
 
 	test('can initialize with tagged template', () => {
-		const options: Options = { preset: 'javascript' };
+		const options: Options = { language: 'javascript' };
 		const parser = createCommentParser(options);
 		const result = parser`
 		a | b | c
@@ -31,7 +31,7 @@ describe('createCommentParser', () => {
 	});
 
 	test('passes options', () => {
-		const options: Options = { preset: 'html' };
+		const options: Options = { language: 'html' };
 		const parser = createCommentParser(options);
 		const result = parser`
 	 			<!-- remove comment -->

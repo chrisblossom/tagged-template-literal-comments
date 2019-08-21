@@ -11,15 +11,15 @@ interface Custom {
 	multiline?: Multiline;
 }
 
-interface ActualPresets {
+interface LanguagesShape {
 	[key: string]: Custom;
 }
 
-const Shape = <M extends ActualPresets>(presets: M): M => {
+const Shape = <M extends LanguagesShape>(presets: M): M => {
 	return presets;
 };
 
-const presets = Shape({
+const languages = Shape({
 	javascript: {
 		singleLine: '//',
 		multiline: {
@@ -38,15 +38,15 @@ const presets = Shape({
 	},
 } as const);
 
-const availablePresets = Object.keys(presets) as (keyof typeof presets)[];
+const availableLanguages = Object.keys(languages) as (keyof typeof languages)[];
 
-interface Preset {
-	preset?: keyof typeof presets;
+interface Language {
+	language?: keyof typeof languages;
 	singleLine?: false;
 	multiline?: false;
 }
 
-export type Options = Custom | Preset;
+export type Options = Custom | Language;
 
 function isCustom(options: Options): options is Custom {
 	if (
@@ -86,32 +86,32 @@ interface MultilineRegex {
 }
 
 function validateOptions(options: Options): void {
-	if ('preset' in options) {
-		if (options.preset !== undefined) {
-			if (availablePresets.includes(options.preset) === false) {
-				const message = `Invalid option preset. Actual: "${
-					options.preset
-				}" Available: "${availablePresets.join(', ')}" `;
+	if ('language' in options) {
+		if (options.language !== undefined) {
+			if (availableLanguages.includes(options.language) === false) {
+				const message = `Invalid option language. Actual: "${
+					options.language
+				}" Available: "${availableLanguages.join(', ')}" `;
 
 				throw new Error(message);
 			}
 		}
 
 		if (
-			options.preset !== undefined &&
+			options.language !== undefined &&
 			(options.singleLine !== undefined && options.singleLine !== false)
 		) {
 			const message =
-				'preset is not a valid option in-combination with singleLine';
+				'language is not a valid option in-combination with singleLine';
 			throw new Error(message);
 		}
 
 		if (
-			options.preset !== undefined &&
+			options.language !== undefined &&
 			(options.multiline !== undefined && options.multiline !== false)
 		) {
 			const message =
-				'preset is not a valid option in-combination with multiline';
+				'language is not a valid option in-combination with multiline';
 			throw new Error(message);
 		}
 	}
@@ -157,10 +157,10 @@ function generateRegexps(options: Options = {}): Result {
 			MULTILINE_END = options.multiline.close;
 		}
 	} else {
-		const preset =
-			options.preset !== undefined ? options.preset : 'javascript';
+		const language =
+			options.language !== undefined ? options.language : 'javascript';
 
-		const matchedPreset = presets[preset];
+		const matchedPreset = languages[language];
 		if ('singleLine' in matchedPreset && options.singleLine !== false) {
 			SINGLE_LINE = matchedPreset.singleLine;
 		}
@@ -230,4 +230,4 @@ function generateRegexps(options: Options = {}): Result {
 	return result;
 }
 
-export { generateRegexps, presets };
+export { generateRegexps, languages };

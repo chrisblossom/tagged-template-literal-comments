@@ -4,11 +4,14 @@ import {
 	createCommentParser,
 	Options,
 } from './tagged-template-literal-comments';
-import { presets, Options as GenerateRegexpsOptions } from './generate-regexps';
+import {
+	languages,
+	Options as GenerateRegexpsOptions,
+} from './generate-regexps';
 
-// TODO: add custom options of fake preset
-const withFakePresets = {
-	...presets,
+// TODO: add custom options of fake language
+const withFakeLanguages = {
+	...languages,
 } as const;
 
 const keys = Object.keys as <T>(o: T) => (Extract<keyof T, string>)[];
@@ -43,7 +46,7 @@ type E = ReturnType<typeof e>;
 
 type TestOptions = Omit<Options, keyof GenerateRegexpsOptions>;
 
-type Focus = keyof typeof withFakePresets | true;
+type Focus = keyof typeof withFakeLanguages | true;
 
 interface BaseTest {
 	title: string;
@@ -131,7 +134,7 @@ type Types =
 type Writeable<T> = { -readonly [P in keyof T]-?: T[P] };
 type Pending = Writeable<
 	{
-		[key in keyof typeof withFakePresets]: {
+		[key in keyof typeof withFakeLanguages]: {
 			[key in Types]: { [key: string]: PendingFormattedTest[] };
 		};
 	}
@@ -214,7 +217,7 @@ function t(tests: Tests): void {
 		/* eslint-enable no-param-reassign */
 	}
 
-	entries(withFakePresets).forEach(([preset, testTypes]) => {
+	entries(withFakeLanguages).forEach(([language, testTypes]) => {
 		function addToPending(
 			type: Types,
 			currentTests: PendingTest[],
@@ -279,24 +282,24 @@ function t(tests: Tests): void {
 					};
 
 					const targetObject =
-						focus === true || focus === preset
+						focus === true || focus === language
 							? pendingOnly
 							: pending;
 
-					if (targetObject[preset] === undefined) {
+					if (targetObject[language] === undefined) {
 						// @ts-ignore
-						targetObject[preset] = {};
+						targetObject[language] = {};
 					}
 
-					if (targetObject[preset][type] === undefined) {
-						targetObject[preset][type] = {};
+					if (targetObject[language][type] === undefined) {
+						targetObject[language][type] = {};
 					}
 
-					if (targetObject[preset][type][describe] === undefined) {
-						targetObject[preset][type][describe] = [];
+					if (targetObject[language][type][describe] === undefined) {
+						targetObject[language][type][describe] = [];
 					}
 
-					targetObject[preset][type][describe].push(formattedTest);
+					targetObject[language][type][describe].push(formattedTest);
 				},
 			);
 		}
@@ -305,7 +308,7 @@ function t(tests: Tests): void {
 			addToPending(
 				'single line',
 				singleLineTests,
-				{ preset },
+				{ language },
 				testTypes.singleLine,
 			);
 		}
@@ -314,7 +317,7 @@ function t(tests: Tests): void {
 			addToPending(
 				'multiline',
 				multilineTests,
-				{ preset },
+				{ language },
 				testTypes.multiline.open,
 				testTypes.multiline.close,
 			);
@@ -329,7 +332,7 @@ function t(tests: Tests): void {
 			addToPending(
 				'mixed',
 				mixedLineTests,
-				{ preset },
+				{ language },
 				testTypes.multiline.open,
 				testTypes.multiline.close,
 			);
@@ -337,14 +340,14 @@ function t(tests: Tests): void {
 			addToPending(
 				'multiline: false',
 				singleLineTests,
-				{ preset, multiline: false },
+				{ language, multiline: false },
 				testTypes.singleLine,
 			);
 
 			addToPending(
 				'singleLine: false',
 				multilineTests,
-				{ preset, singleLine: false },
+				{ language, singleLine: false },
 				testTypes.multiline.open,
 				testTypes.multiline.close,
 			);
@@ -378,11 +381,11 @@ function runTests() {
 		Object.keys(pendingOnly).length !== 0 ? pendingOnly : pending;
 
 	/* eslint-disable jest/valid-describe */
-	entries(pendingTests).forEach(([preset, presetTests]) => {
-		entries(presetTests).forEach(([testType, currentTests]) => {
+	entries(pendingTests).forEach(([language, languageTests]) => {
+		entries(languageTests).forEach(([testType, currentTests]) => {
 			entries(currentTests).forEach(([testDescribe, subTests]) => {
 				subTests.forEach((actualTest) => {
-					describe(preset, () => {
+					describe(language, () => {
 						describe(testType, () => {
 							if (testDescribe !== '_') {
 								describe(`${testDescribe}`, () => {

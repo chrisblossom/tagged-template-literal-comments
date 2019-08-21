@@ -53,7 +53,7 @@ const jsWithoutComments = `
 
 // jsWithComments === jsWithoutComments
 
-const htmlCommentParser = createCommentParser({ preset: 'html' });
+const htmlCommentParser = createCommentParser({ language: 'html' });
 
 const htmlWithComments = htmlCommentParser`
 	<!-- remove comment -->
@@ -73,24 +73,24 @@ const htmlWithoutComments = `
 ```js
 const parser = createCommentParser({
 	/**
-	 * Comment language parser preset
+	 * Comment language parser
 	 *
 	 * available: javascript, html, ignore
 	 * default: 'javascript'
 	 */
-	preset: 'javascript',
+	language: 'javascript',
 
 	/**
 	 * Set single line comment marker
 	 *
-	 * disable preset single line comments by setting to false
+	 * disable single line comments by setting to false
 	 */
 	singleLine: '//',
 
 	/**
 	 * Set multiline comment marker
 	 *
-	 * disable preset multiline comments by setting to false
+	 * disable multiline comments by setting to false
 	 */
 	multiline: { open: '/*', close: '*/' },
 

@@ -59,8 +59,8 @@ describe('generate-regexps', () => {
 		});
 	});
 
-	test('javascript preset', () => {
-		const result = generateRegexps({ preset: 'javascript' });
+	test('javascript language', () => {
+		const result = generateRegexps({ language: 'javascript' });
 
 		expect(result).toEqual({
 			source: {
@@ -109,9 +109,9 @@ describe('generate-regexps', () => {
 		});
 	});
 
-	test('disable preset singleLine section', () => {
+	test('disable language singleLine section', () => {
 		const result = generateRegexps({
-			preset: 'javascript',
+			language: 'javascript',
 			singleLine: false,
 		});
 
@@ -127,9 +127,9 @@ describe('generate-regexps', () => {
 		});
 	});
 
-	test('disable preset multiline section', () => {
+	test('disable language multiline section', () => {
 		const result = generateRegexps({
-			preset: 'javascript',
+			language: 'javascript',
 			multiline: false,
 		});
 
@@ -145,8 +145,8 @@ describe('generate-regexps', () => {
 		});
 	});
 
-	test('html preset', () => {
-		const result = generateRegexps({ preset: 'html' });
+	test('html language', () => {
+		const result = generateRegexps({ language: 'html' });
 
 		expect(result).toEqual({
 			source: { multiline: { open: '<!--', close: '-->' } },
@@ -215,38 +215,38 @@ describe('generate-regexps', () => {
 	});
 
 	describe('errors', () => {
-		test('throws when preset not found', () => {
+		test('throws when language not found', () => {
 			// @ts-ignore
-			expect(() => generateRegexps({ preset: 'unknown' })).toThrow(
-				'Invalid option preset. Actual: "unknown" Available: "',
+			expect(() => generateRegexps({ language: 'unknown' })).toThrow(
+				'Invalid option language. Actual: "unknown" Available: "',
 			);
 		});
 
-		test('throws when preset is empty', () => {
+		test('throws when language is empty', () => {
 			// @ts-ignore
-			expect(() => generateRegexps({ preset: '' })).toThrow(
-				'Invalid option preset. Actual: "" Available: "',
+			expect(() => generateRegexps({ language: '' })).toThrow(
+				'Invalid option language. Actual: "" Available: "',
 			);
 		});
 
-		test('throws when preset is provided along with singleLine', () => {
+		test('throws when language is provided along with singleLine', () => {
 			expect(() =>
 				// @ts-ignore
-				generateRegexps({ preset: 'javascript', singleLine: '#' }),
+				generateRegexps({ language: 'javascript', singleLine: '#' }),
 			).toThrow(
-				'preset is not a valid option in-combination with singleLine',
+				'language is not a valid option in-combination with singleLine',
 			);
 		});
 
-		test('throws when preset is provided along with multiline', () => {
+		test('throws when language is provided along with multiline', () => {
 			expect(() =>
 				generateRegexps({
 					// @ts-ignore
-					preset: 'javascript',
+					language: 'javascript',
 					multiline: { open: '#-', close: '-#' },
 				}),
 			).toThrow(
-				'preset is not a valid option in-combination with multiline',
+				'language is not a valid option in-combination with multiline',
 			);
 		});
 
