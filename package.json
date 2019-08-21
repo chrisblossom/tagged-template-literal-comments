@@ -1,6 +1,6 @@
 {
   "name": "tagged-template-literal-comments",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "description": "Adds comment parsing to javascript tagged template literals",
   "keywords": [
     "tagged",
